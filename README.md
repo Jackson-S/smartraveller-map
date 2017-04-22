@@ -1,6 +1,6 @@
 # smartraveller.gov.au Map Generator
 ### What is this?
-This takes the images from smartraveller.gov.au and gets the average caution
+This takes the images from smartraveller.gov.au and gets the average warning
 level for that country, then places all that into a pretty SVG file.
 ![If this link worked a pretty map would be here](sample.png?raw=true "Map Sample")
 
@@ -14,6 +14,7 @@ Ask the Australian Government. It's their data.
 Deal with it. It's not (at all) optimized or well thought out code.
 
 ### License
-World map from https://www.amcharts.com/svg-maps/?map=world obtained under Creative Commons Attribution-NonCommercial 4.0 International License
+World map from [here](https://www.amcharts.com/svg-maps/?map=world)
+obtained under Creative Commons Attribution-NonCommercial 4.0 International License
 Modified to allow automatic replacement of text
 Script is released under MIT license. See LICENSE.md
