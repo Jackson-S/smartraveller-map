@@ -2,7 +2,7 @@
 ### What is this?
 This takes the images from smartraveller.gov.au and gets the average caution
 level for that country, then places all that into a pretty SVG file.
-![If this link worked a pretty map would be here](https://github.com/jackson-s/smartraveller-map/sample.svg)
+![If this link worked a pretty map would be here](https://raw.githubusercontent.com/Jackson-S/smartraveller-map/master/sample.svg)
 
 ### Motivation
 I thought it'd look cool. I thought right.
