@@ -11,7 +11,6 @@ Ask the Australian Government. It's their data.
 
 ### License
 World maps from [here](https://www.amcharts.com/svg-maps/?map=world)
-obtained under Creative Commons Attribution-NonCommercial 4.0 International License
-Modified to allow automatic replacement of text
+obtained under Creative Commons Attribution-NonCommercial 4.0 International License and modified to allow automatic replacement of text
 
 Script is released under MIT license. See LICENSE for details
