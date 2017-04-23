@@ -1,20 +1,17 @@
 # smartraveller.gov.au Map Generator
 ### What is this?
-This takes the images from smartraveller.gov.au and gets the average warning
-level for that country, then places all that into a pretty SVG file.
+This script takes data from smartraveller.gov.au and gets the overall travel advisory level for each country, then places all that into a pretty SVG file.
 ![If this link worked a pretty map would be here](sample.png?raw=true "Map Sample")
 
 ### Motivation
-I thought it'd look cool. I thought right.
+smartraveller.gov.au doesn't provide a world map, I thought it'd look cool. I thought right.
 
 ### Why Are Some Countries Grey?
 Ask the Australian Government. It's their data.
 
-### This Takes Too Long To Run
-Deal with it. It's not (at all) optimized or well thought out code.
-
 ### License
-World map from [here](https://www.amcharts.com/svg-maps/?map=world)
+World maps from [here](https://www.amcharts.com/svg-maps/?map=world)
 obtained under Creative Commons Attribution-NonCommercial 4.0 International License
 Modified to allow automatic replacement of text
-Script is released under MIT license. See LICENSE.md
+
+Script is released under MIT license. See LICENSE for details

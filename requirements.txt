@@ -1,3 +1,6 @@
-pillow
 pycountry
-tqdm
+pycurl
+
+# Requires cairo to be installed, uncomment if you want png output
+# cairosvg
+#
