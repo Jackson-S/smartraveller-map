@@ -11,7 +11,7 @@
 				stroke-opacity: 1;
 				stroke-width:0.5;
 			}
-			<!-- PYTHON -->
+			<!-- PYTHON Style1 -->
 		</style>
 
 		<amcharts:ammap projection="mercator" leftLongitude="-169.110266" topLatitude="83.63001" rightLongitude="190.480712" bottomLatitude="-58.488473"></amcharts:ammap>
