@@ -4,6 +4,8 @@ This script takes data from smartraveller.gov.au and gets the overall travel adv
 ![If this link worked a pretty map would be here](sample.png?raw=true "Map Sample")
 
 ### Requirements
+- requests
+- jsonpath-ng
 - cairosvg (optional, only required for PNG output)
 
 ### Motivation

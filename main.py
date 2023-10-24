@@ -3,16 +3,37 @@ import re
 import json
 import argparse
 import urllib.request
+import requests
+from jsonpath_ng.ext import parse
+from dataclasses import dataclass
+from typing import List
 
 from countries import country_codes
 
-def get_country_json():
-    """ Retrieve a list of countries and statuses from smartraveller.gov.au """
-    url = "http://smartraveller.gov.au/countries/pages/list.aspx"
-    country_list_html = urllib.request.urlopen(url)
-    country_list_html = country_list_html.read().decode("UTF-8")
-    country_list_json = re.findall(r"\[{.*}\]", country_list_html)[2]
-    return json.loads(country_list_json)
+@dataclass
+class Country:
+    country_id: str
+    country_name: str
+    overall_advice_level: str
+
+def fetch_api():
+    request = requests.get("https://www.smartraveller.gov.au/api/publishedpages")
+    locations = parse("$[?(@.pageType=='location')].id").find(request.json())
+    response = []
+    for location in locations:
+        id = location.value
+        location_request = requests.get(f"https://www.smartraveller.gov.au/api/locationpages/{id}")
+        title_html: str = location_request.json()[0]["title"]
+        title = re.findall(">.*<", title_html)[0][1:-1]
+        print(title)
+        advice_html: str = location_request.json()[0]["overallAdviceLevel"]
+        try:
+            advice = re.findall(">.*<", advice_html)[0][1:-1]
+        except IndexError:
+            print(f"No advice found for {title}")
+            advice = None
+        response.append(Country(id, title, advice))
+    return response
 
 
 def convert_to_png(scale):
@@ -40,39 +61,29 @@ def get_map_file(arguments):
 
 def main(arguments):
     # The rgb vals of each warning (green, yellow, orange, red) smartraveller uses
-    colours = { "normal":    (152, 211, 155),
-                "caution":   (254, 230, 134),
-                "warning":   (249, 172, 95),
-                "danger":    (229, 117, 116),
-                "australia": (0, 0, 0) }
+    colours = { 
+        "Exercise normal safety precautions": (152, 211, 155),
+        "Reconsider your need to travel": (254, 230, 134),
+        "Exercise a high degree of caution": (249, 172, 95),
+        "Do not travel": (229, 117, 116),
+    }
 
     # Find the correct JSON data in the page downloaded and read.
-    countries_json = get_country_json()
+    countries_api: List[Country] = fetch_api()
 
     # Initialize a list of all countries on smartraveller
-    countries = [("AU", "australia")]
+    countries = []
 
     # For each country in the data get the necessary fields into an array
-    for index, item in enumerate(countries_json):
-        # Loads the advice levels for the specified country
-        advisory = json.loads(item["Smartraveller_x0020_Advice_x0020_Levels"])
+    for item in countries_api:
         # Looks up the correct country code
         try:
-            country_code = country_codes[item["Title"]]
+            country_code = country_codes[item.country_id]
         except KeyError:
-            # If the country is not found then it may have changed names,
-            # to fix this add the country into the country list along with
-            # its correct country code i.e. "Australia: AU"
-            print("Country '{}' not found.".format(item["Title"]))
+            print(f"Country '{item.country_name}' with id '{item.country_id}' not found.")
             continue
 
-        # Obtain the current warning level for each country, if one exists
-        try:
-            advisory = advisory["items"][0]['level']
-        except IndexError:
-            advisory = None
-
-        countries.append((country_code, advisory))
+        countries.append((country_code, item.overall_advice_level))
 
     # Read in the entire map resource (Done early to determine map code style)
     with open(get_map_file(arguments)) as map_file:

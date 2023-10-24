@@ -1,1 +1,3 @@
 cairosvg
+requests
+jsonpath-ng
